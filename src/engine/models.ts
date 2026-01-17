@@ -46,11 +46,14 @@ export interface GameConfig {
   maxHandSize: number; // 7
 }
 
+export type TurnAction = "none" | "draw" | "bank" | "solve";
+
 export interface GameState {
   id: string;
   players: PlayerState[];
   turnOrder: PlayerId[];
   currentPlayerIndex: number;
+  currentTurnAction: TurnAction;
   clueDeck: ClueCard[];
   caseDeck: CaseCard[];
   faceUpCases: CaseCard[];

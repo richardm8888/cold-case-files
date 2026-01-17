@@ -33,6 +33,7 @@ export class ColdCaseGame {
             players,
             turnOrder: playerIds.slice(),
             currentPlayerIndex: 0,
+            currentTurnAction: "none",
             clueDeck: clueDeck.slice(),
             caseDeck: caseDeck.slice(),
             faceUpCases: [],
@@ -105,9 +106,9 @@ export class ColdCaseGame {
             this.state.caseDeck = ColdCaseGame.shuffle(this.state.caseDeck);
         }
 
-        // Reveal 2 cases face-up (if available)
+        // Reveal 4 cases face-up (if available)
         this.state.faceUpCases = [];
-        for (let i = 0; i < 2; i++) {
+        for (let i = 0; i < 4; i++) {
             const c = this.state.caseDeck.shift();
             if (c) this.state.faceUpCases.push(c);
         }
@@ -139,6 +140,13 @@ export class ColdCaseGame {
             throw new Error("Not this player's turn");
         }
 
+        if (this.state.currentTurnAction === "draw") {
+            throw new Error("Cannot bank after drawing - must solve a case or end turn");
+        }
+        if (this.state.currentTurnAction !== "none") {
+            throw new Error("Action already taken this turn");
+        }
+
         if (handIndex < 0 || handIndex >= player.hand.length) {
             throw new Error('Invalid hand index');
         }
@@ -146,6 +154,7 @@ export class ColdCaseGame {
         const card = player.hand.splice(handIndex, 1)[0];
         player.bankedClues.push(card);
         player.score += card.bankValue;
+        this.state.currentTurnAction = "bank";
         player.turnsTaken += 1;
 
         this.advanceTurnIfNeeded();
@@ -156,6 +165,10 @@ export class ColdCaseGame {
         const player = this.findPlayer(playerId);
         if (this.currentPlayer().id !== playerId) {
             throw new Error("Not this player's turn");
+        }
+
+        if (this.state.currentTurnAction !== "none" && this.state.currentTurnAction !== "draw") {
+            throw new Error("Action already taken this turn");
         }
 
         const faceIdx = this.state.faceUpCases.findIndex((c) => c.id === caseId);
@@ -234,6 +247,7 @@ export class ColdCaseGame {
             this.state.faceUpCases.push(replacement);
         }
 
+        this.state.currentTurnAction = "solve";
         player.turnsTaken += 1;
         this.advanceTurnIfNeeded();
     }
@@ -245,11 +259,17 @@ export class ColdCaseGame {
         if (this.currentPlayer().id !== playerId) {
             throw new Error("Not this player's turn");
         }
+
+        if (this.state.currentTurnAction !== "none") {
+            throw new Error("Action already taken this turn - only one action per turn");
+        }
+
         const card = this.state.clueDeck.shift();
         if (!card) {
             throw new Error('Clue deck is empty');
         }
         player.hand.push(card);
+        this.state.currentTurnAction = "draw";
 
         if (player.hand.length > this.state.config.maxHandSize) {
             // Caller must call resolveHandOverage immediately.
@@ -292,6 +312,7 @@ export class ColdCaseGame {
 
     private advanceTurnIfNeeded() {
         this.state.currentPlayerIndex = (this.state.currentPlayerIndex + 1) % this.state.turnOrder.length;
+        this.state.currentTurnAction = "none";
 
         // Game end: when clue deck is empty and all players have equal turnsTaken
         if (this.state.clueDeck.length === 0) {
