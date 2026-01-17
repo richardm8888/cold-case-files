@@ -6,3 +6,17 @@ Run locally:
 
 1. npm install
 2. npm run dev
+
+## Running Tests
+
+To run the tests, first install the required dependencies:
+
+```bash
+npm install
+```
+
+Then, run the tests with:
+
+```bash
+npm run dev
+```
