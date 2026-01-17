@@ -4,19 +4,33 @@
     "private": true,
     "scripts": {
         "dev": "vite",
+        "dev:server": "nodemon --watch server --exec tsx server/index.ts",
+        "dev:all": "concurrently \"npm run dev\" \"npm run dev:server\"",
         "build": "vite build",
         "preview": "vite preview",
         "test": "vitest"
     },
     "dependencies": {
+        "@types/cors": "^2.8.19",
+        "@types/express": "^5.0.6",
+        "cors": "^2.8.5",
+        "express": "^5.2.1",
         "react": "^18.2.0",
-        "react-dom": "^18.2.0"
+        "react-dom": "^18.2.0",
+        "socket.io": "^4.8.3",
+        "socket.io-client": "^4.8.3",
+        "sql.js": "^1.13.0"
     },
     "devDependencies": {
         "@testing-library/jest-dom": "^6.0.0",
         "@testing-library/react": "^15.0.0",
-        "@types/node": "^20.0.0",
+        "@types/node": "^20.19.30",
+        "@types/supertest": "^6.0.3",
         "@vitejs/plugin-react": "^4.0.0",
+        "concurrently": "^9.2.1",
+        "nodemon": "^3.1.11",
+        "supertest": "^7.2.2",
+        "tsx": "^4.21.0",
         "typescript": "^5.1.6",
         "vite": "^5.0.0",
         "vitest": "^0.34.0"

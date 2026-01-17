@@ -16,8 +16,8 @@ export class ColdCaseGame {
     state: GameState;
 
     constructor(id: string, playerIds: PlayerId[], clueDeck: ClueCard[], caseDeck: CaseCard[]) {
-        if (playerIds.length < 2 || playerIds.length > 4) {
-            throw new Error('Game supports 2-4 players');
+        if (playerIds.length < 1 || playerIds.length > 4) {
+            throw new Error('Game supports 1-4 players');
         }
         const players: PlayerState[] = playerIds.map((pid) => ({
             id: pid,

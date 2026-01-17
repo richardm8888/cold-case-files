@@ -913,3 +913,271 @@ body {
     background: linear-gradient(to bottom, #2ecc71, #27ae60);
     transform: scale(1.05);
 }
+
+/* Lobby Screen */
+.lobby-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+.lobby-card {
+    background: 
+        linear-gradient(rgba(139, 115, 85, 0.1), rgba(139, 115, 85, 0.1)),
+        repeating-linear-gradient(90deg, #8b7355 0px, #8b7355 2px, #7a6449 2px, #7a6449 4px);
+    border: 4px solid #5a4a3a;
+    border-radius: 12px;
+    padding: 3rem;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 
+        0 12px 40px rgba(0,0,0,0.8),
+        inset 0 0 80px rgba(0,0,0,0.3);
+    position: relative;
+}
+
+.lobby-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 30% 40%, rgba(0,0,0,0.1) 1px, transparent 1px),
+        radial-gradient(circle at 70% 60%, rgba(0,0,0,0.1) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    opacity: 0.6;
+    border-radius: 8px;
+}
+
+.lobby-card > * {
+    position: relative;
+    z-index: 1;
+}
+
+.lobby-card h1 {
+    font-family: 'Special Elite', monospace;
+    color: #d4af37;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    text-shadow: 3px 3px 0 rgba(0,0,0,0.8), 0 0 20px rgba(255,215,0,0.3);
+    letter-spacing: 3px;
+}
+
+.lobby-card .subtitle {
+    text-align: center;
+    color: #a8a8a8;
+    font-style: italic;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+.player-name-section {
+    margin-bottom: 2rem;
+}
+
+.player-name-section label {
+    font-family: 'Special Elite', monospace;
+    color: #d4af37;
+    display: block;
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.player-name-section input,
+.join-by-code input {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(to bottom, #f5f3ed 0%, #e8e5d8 100%);
+    border: 2px solid #8b7355;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    font-family: 'Crimson Text', Georgia, serif;
+    transition: all 0.3s;
+}
+
+.player-name-section input:focus,
+.join-by-code input:focus {
+    outline: none;
+    border-color: #d4af37;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+}
+
+.player-name-section input:disabled,
+.join-by-code input:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.error-message {
+    background: linear-gradient(to bottom, #e74c3c 0%, #c0392b 100%);
+    color: white;
+    padding: 1rem;
+    border-radius: 4px;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.lobby-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.create-game-btn {
+    width: 100%;
+    padding: 1.25rem;
+    background: linear-gradient(to bottom, #d4af37 0%, #b8941f 100%);
+    color: #1a1a1a;
+    border: 2px solid #b8941f;
+    border-radius: 4px;
+    font-family: 'Special Elite', monospace;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.2s;
+    box-shadow: 
+        0 4px 12px rgba(0,0,0,0.5),
+        inset 0 1px 0 rgba(255,255,255,0.3);
+}
+
+.create-game-btn:hover:not(:disabled) {
+    background: linear-gradient(to bottom, #e4bf47 0%, #d4af37 100%);
+    transform: translateY(-2px);
+    box-shadow: 
+        0 6px 16px rgba(212, 175, 55, 0.6),
+        inset 0 1px 0 rgba(255,255,255,0.3);
+}
+
+.create-game-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.join-by-code {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.join-by-code input {
+    flex: 1;
+}
+
+.join-by-code button {
+    padding: 1rem 1.5rem;
+    background: linear-gradient(to bottom, #8b7355 0%, #6b5345 100%);
+    color: #fff;
+    border: 2px solid #5a4a3a;
+    border-radius: 4px;
+    font-family: 'Special Elite', monospace;
+    font-weight: 600;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.join-by-code button:hover:not(:disabled) {
+    background: linear-gradient(to bottom, #9b8365 0%, #7b6355 100%);
+    transform: translateY(-2px);
+}
+
+.join-by-code button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.available-games {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid rgba(212, 175, 55, 0.3);
+}
+
+.available-games h3 {
+    font-family: 'Special Elite', monospace;
+    color: #d4af37;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.games-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.game-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: linear-gradient(to bottom, #f5f3ed 0%, #e8e5d8 100%);
+    border: 2px solid #8b7355;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.game-item:hover {
+    border-color: #d4af37;
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+}
+
+.game-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.game-id {
+    font-family: 'Special Elite', monospace;
+    color: #2c3e50;
+    font-size: 0.9rem;
+}
+
+.player-count {
+    color: #7f8c8d;
+    font-size: 0.85rem;
+}
+
+.game-item button {
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(to bottom, #2d7a2d 0%, #1d5a1d 100%);
+    color: white;
+    border: 2px solid #1d5a1d;
+    border-radius: 3px;
+    font-family: 'Special Elite', monospace;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+}
+
+.game-item button:hover:not(:disabled) {
+    background: linear-gradient(to bottom, #3d9a3d 0%, #2d7a2d 100%);
+    transform: translateY(-2px);
+}
+
+.game-item button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
